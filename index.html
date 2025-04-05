@@ -2,30 +2,29 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Device Logger</title>
+  <title>Отправка</title>
   <style>
     body {
       font-family: sans-serif;
-      text-align: center;
-      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 32px;
     }
   </style>
 </head>
 <body>
-  <h1>📱 Спасибо! Мы зафиксировали ваше устройство</h1>
-  <p id="info">Загрузка...</p>
+  <div id="status">Отправка...</div>
 
-  <form id="deviceForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="invisibleFrame" style="display: none;">
-    <input name="entry.1295322492" id="deviceInput" type="text">
+  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame" style="display: none;">
+    <input name="entry.1295322492" type="text" value="9">
   </form>
 
-  <iframe name="invisibleFrame" style="display:none;"></iframe>
+  <iframe name="hiddenFrame" style="display: none;" onload="document.getElementById('status').textContent = 'Отправил'"></iframe>
 
   <script>
-    const userAgent = navigator.userAgent;
-    document.getElementById("info").textContent = userAgent;
-    document.getElementById("deviceInput").value = userAgent;
-    document.getElementById("deviceForm").submit();
+    document.getElementById('sendForm').submit();
   </script>
 </body>
 </html>
