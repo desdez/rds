@@ -1,1 +1,37 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Отправка</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 32px;
+    }
+    /* Скрыть поле визуально, но оставить в DOM */
+    #sendForm {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">Отправквввва...</div>
+
+  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame">
+    <input name="entry.206479093" type="text" value="9">
+  </form>
+
+  <iframe name="hiddenFrame" style="display: none;" onload="document.getElementById('status').textContent = 'Отпffffравивввл'"></iframe>
+
+  <script>
+    document.getElementById('sendForm').submit();
+  </script>
+</body>
+</html>
