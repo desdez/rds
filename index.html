@@ -12,12 +12,18 @@
       height: 100vh;
       font-size: 32px;
     }
+    /* Скрыть поле визуально, но оставить в DOM */
+    #sendForm {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
   <div id="status">Отправка...</div>
 
-  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame" style="display: none;">
+  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame">
     <input name="entry.1295322492" type="text" value="9">
   </form>
 
