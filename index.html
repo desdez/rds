@@ -1,45 +1,22 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Device Logger</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 100px;
+<script>
+  const userAgent = navigator.userAgent;
+
+  const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse";
+  const data = new URLSearchParams();
+  data.append("entry.1295322492", userAgent);
+
+  fetch(formUrl, {
+    method: "POST",
+    mode: "no-cors", // 🚨 добавили вот это!
+    body: data,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
     }
-    #info {
-      margin-top: 20px;
-      font-size: 1.1em;
-      color: #333;
-    }
-  </style>
-</head>
-<body>
-  <h1>📱 Мы определили ваше устройство:</h1>
-  <p id="info">Загрузка...</p>
-
-  <script>
-    const userAgent = navigator.userAgent;
-    document.getElementById("info").textContent = userAgent;
-
-    // Заменить на ссылку Google Form (URL отправки)
-    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse";
-    const data = new URLSearchParams();
-    data.append("entry.1295322492", userAgent); // Заменить entry.1234567890 на ID поля из формы
-
-    fetch(formUrl, {
-      method: "POST",
-      body: data,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    })
-    .then(response => response.text())
-    .then(responseText => console.log("Ответ отправлен:", responseText))
-    .catch(err => console.error("Ошибка отправки:", err));
-  </script>
-</body>
-</html>
+  })
+  .then(() => {
+    console.log("Данные отправлены (невидимый ответ)");
+  })
+  .catch((err) => {
+    console.error("Ошибка отправки:", err);
+  });
+</script>
