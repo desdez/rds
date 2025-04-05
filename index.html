@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Устройство определено</title>
+  <title>Device Logger</title>
   <style>
     body {
       font-family: sans-serif;
@@ -18,21 +18,28 @@
   </style>
 </head>
 <body>
-  <h1>📱 Вы зашли с устройства:</h1>
+  <h1>📱 Мы определили ваше устройство:</h1>
   <p id="info">Загрузка...</p>
 
   <script>
     const userAgent = navigator.userAgent;
     document.getElementById("info").textContent = userAgent;
 
-    // Отправка данных на Google Apps Script
-    fetch("https://script.google.com/macros/s/16RlZqPnj5p84SldqK8WtKcd6B_8yk3cG8MI1aelguI4Oqizc683IPsVW/exec", {
+    // Заменить на ссылку Google Form (URL отправки)
+    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse";
+    const data = new URLSearchParams();
+    data.append("entry.1295322492", userAgent); // Заменить entry.1234567890 на ID поля из формы
+
+    fetch(formUrl, {
       method: "POST",
-      body: JSON.stringify({ userAgent }),
-      headers: { "Content-Type": "application/json" }
-    }).then(res => res.text())
-      .then(res => console.log("Отправлено:", res))
-      .catch(err => console.error("Ошибка отправки:", err));
+      body: data,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .then(response => response.text())
+    .then(responseText => console.log("Ответ отправлен:", responseText))
+    .catch(err => console.error("Ошибка отправки:", err));
   </script>
 </body>
 </html>
