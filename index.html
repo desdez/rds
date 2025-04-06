@@ -60,7 +60,7 @@
           const combinedInfo = `${userAgent} | ${currentTime}`;
 
           // Заполняем поля формы
-          document.getElementById("combinedInput").value = ipAddress;
+          document.getElementById("combinedInput").value = `${combinedInfo} | ${ipAddress}`;
           document.getElementById("ipInput").value = ipAddress;
 
           // Отправляем форму
