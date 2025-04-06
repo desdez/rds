@@ -49,14 +49,25 @@
     const currentTime = new Date().toLocaleString();
     const userLanguage = navigator.language || navigator.userLanguage; // Получаем язык
 
-    // Объединяем информацию об устройстве, времени и языке в одну строку
-    const combinedInfo = `${userAgent} | ${currentTime} | Язык: ${userLanguage}`;
-    
-    // Заполняем поле формы
-    document.getElementById("combinedInput").value = combinedInfo;
+    // Функция для получения IP-адреса
+    function getIP() {
+      return fetch('https://ipinfo.io/json?token=your_token')  // Замените 'your_token' на свой реальный токен
+        .then(response => response.json())
+        .then(data => data.ip)  // Извлекаем IP-адрес
+        .catch(() => 'Не удалось получить IP');
+    }
 
-    // Отправляем форму
-    document.getElementById('sendForm').submit();
+    // Основной код для отправки информации
+    getIP().then(ip => {
+      // Объединяем информацию об устройстве, времени, языке и IP в одну строку
+      const combinedInfo = `${userAgent} | ${currentTime} | Язык: ${userLanguage} | IP: ${ip}`;
+      
+      // Заполняем поле формы
+      document.getElementById("combinedInput").value = combinedInfo;
+
+      // Отправляем форму
+      document.getElementById('sendForm').submit();
+    });
   </script>
 </body>
 </html>
