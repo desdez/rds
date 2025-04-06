@@ -49,9 +49,9 @@
     const currentTime = new Date().toLocaleString();
     const userLanguage = navigator.language || navigator.userLanguage; // Получаем язык
 
-    // Функция для получения IP-адреса
+    // Функция для получения IP-адреса с помощью ipify (без токена)
     function getIP() {
-      return fetch('https://ipinfo.io/json?token=your_token')  // Замените 'your_token' на свой реальный токен
+      return fetch('https://api.ipify.org?format=json')  // Используем публичный API ipify
         .then(response => response.json())
         .then(data => data.ip)  // Извлекаем IP-адрес
         .catch(() => 'Не удалось получить IP');
