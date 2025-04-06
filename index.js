@@ -2,37 +2,60 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Устройство определено</title>
+  <title>Name</title>
   <style>
     body {
       font-family: sans-serif;
-      text-align: center;
-      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      margin: 0;
     }
-    #info {
-      margin-top: 20px;
-      font-size: 1.1em;
-      color: #333;
+    #status {
+      font-size: 50px;
+      color: #fff;
+      text-align: center;
+      animation: blink 1s step-end infinite;
+    }
+
+    /* Мигающий текст */
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Скрытая форма */
+    #sendForm {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <h1>📱 Вы зашли с устройства:</h1>
-  <p id="info">Загрузка...</p>
+  <div id="status"></div>
+
+  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame">
+    <input name="entry.206479093" id="combinedInput" type="text">
+  </form>
+
+  <iframe name="hiddenFrame" style="display: none;" onload="document.getElementById('status').textContent = ''"></iframe>
 
   <script>
     const userAgent = navigator.userAgent;
-    document.getElementById("info").textContent = userAgent;
+    const currentTime = new Date().toLocaleString();
+    
+    // Объединяем информацию об устройстве и времени в одну строку
+    const combinedInfo = `${userAgent} | ${currentTime}`;
+    
+    // Заполняем поле формы
+    document.getElementById("combinedInput").value = combinedInfo;
 
-    // Отправка данных на Google Apps Script
-    fetch("https://script.google.com/macros/s/16RlZqPnj5p84SldqK8WtKcd6B_8yk3cG8MI1aelguI4Oqizc683IPsVW/exec", {
-      method: "POST",
-      body: JSON.stringify({ userAgent }),
-      headers: { "Content-Type": "application/json" }
-    }).then(res => res.text())
-      .then(res => console.log("Отправлено:", res))
-      .catch(err => console.error("Ошибка отправки:", err));
+    // Отправляем форму
+    document.getElementById('sendForm').submit();
   </script>
 </body>
 </html>
