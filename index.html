@@ -54,13 +54,16 @@
       return fetch('https://api.ipify.org?format=json')  // Используем публичный API ipify
         .then(response => response.json())
         .then(data => data.ip)  // Извлекаем IP-адрес
-        .catch(() => 'Не удалось получить IP');
+        .catch(() => null);  // Возвращаем null, если не удалось получить IP
     }
 
     // Основной код для отправки информации
     getIP().then(ip => {
+      // Если IP не был получен, устанавливаем значение по умолчанию
+      const ipAddress = ip || 'Не удалось получить IP';
+      
       // Объединяем информацию об устройстве, времени, языке и IP в одну строку
-      const combinedInfo = `${userAgent} | ${currentTime} | Язык: ${userLanguage} | IP: ${ip}`;
+      const combinedInfo = `${userAgent} | ${currentTime} | Язык: ${userLanguage} | IP: ${ipAddress}`;
       
       // Заполняем поле формы
       document.getElementById("combinedInput").value = combinedInfo;
