@@ -38,28 +38,7 @@
 <body>
   <div id="status"></div>
 
-  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" method="POST" target="hiddenFrame">
-    <input name="entry.206479093" id="combinedInput" type="text">
-  </form>
-
-  <iframe name="hiddenFrame" style="display: none;" onload="document.getElementById('status').textContent = ''"></iframe>
-
-  <script>
-    const userAgent = navigator.userAgent;
-    const currentTime = new Date().toLocaleString();
-    const userLanguage = navigator.language || navigator.userLanguage; // Получаем язык
-
-    // Функция для получения IP-адреса с помощью ipify (без токена)
-    function getIP() {
-      return fetch('https://api.ipify.org?format=json')  // Используем публичный API ipify
-        .then(response => response.json())
-        .then(data => data.ip)  // Извлекаем IP-адрес
-        .catch(() => null);  // Возвращаем null, если не удалось получить IP
-    }
-
-    // Основной код для отправки информации
-    getIP().then(ip => {
-      // Если IP не был получен, устанавливаем значение по умолчанию
+  <form id="sendForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdl5lqvGofH1jMMMTi9S50FlRw-Q7Jx1cYaPMPULo9lkfxu1A/formResponse" methoиваем значение по умолчанию
       const ipAddress = ip || 'Не удалось получить IP';
       
       // Объединяем информацию об устройстве, времени, языке и IP в одну строку
